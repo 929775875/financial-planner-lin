@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.niudingfeng.financialplannerlin.mapper.BizCustomerMapper" >
+  <resultMap id="BaseResultMap" type="com.niudingfeng.financialplannerlin.pojo.BizCustomer" >
+    <id column="customer_id" property="customerId" jdbcType="VARCHAR" />
+    <id column="sale_id" property="saleId" jdbcType="VARCHAR" />
+    <result column="customer_name" property="customerName" jdbcType="VARCHAR" />
+    <result column="marital_status" property="maritalStatus" jdbcType="VARCHAR" />
+    <result column="birth_date" property="birthDate" jdbcType="VARCHAR" />
+    <result column="gender" property="gender" jdbcType="VARCHAR" />
+    <result column="ID_number" property="idNumber" jdbcType="VARCHAR" />
+    <result column="ID_type" property="idType" jdbcType="VARCHAR" />
+    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+    <result column="permanent_city" property="permanentCity" jdbcType="VARCHAR" />
+    <result column="permanent_provinces" property="permanentProvinces" jdbcType="VARCHAR" />
+    <result column="professional" property="professional" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    customer_id, sale_id, customer_name, marital_status, birth_date, gender, ID_number, 
+    ID_type, mobile, permanent_city, permanent_provinces, professional, address, user_id
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.niudingfeng.financialplannerlin.pojo.BizCustomerExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from biz_customer
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.niudingfeng.financialplannerlin.pojo.BizCustomerKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from biz_customer
+    where customer_id = #{customerId,jdbcType=VARCHAR}
+      and sale_id = #{saleId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.niudingfeng.financialplannerlin.pojo.BizCustomerKey" >
+    delete from biz_customer
+    where customer_id = #{customerId,jdbcType=VARCHAR}
+      and sale_id = #{saleId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.niudingfeng.financialplannerlin.pojo.BizCustomerExample" >
+    delete from biz_customer
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.niudingfeng.financialplannerlin.pojo.BizCustomer" >
+    insert into biz_customer (customer_id, sale_id, customer_name, 
+      marital_status, birth_date, gender, 
+      ID_number, ID_type, mobile, 
+      permanent_city, permanent_provinces, professional, 
+      address, user_id)
+    values (#{customerId,jdbcType=VARCHAR}, #{saleId,jdbcType=VARCHAR}, #{customerName,jdbcType=VARCHAR}, 
+      #{maritalStatus,jdbcType=VARCHAR}, #{birthDate,jdbcType=VARCHAR}, #{gender,jdbcType=VARCHAR}, 
+      #{idNumber,jdbcType=VARCHAR}, #{idType,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, 
+      #{permanentCity,jdbcType=VARCHAR}, #{permanentProvinces,jdbcType=VARCHAR}, #{professional,jdbcType=VARCHAR}, 
+      #{address,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.niudingfeng.financialplannerlin.pojo.BizCustomer" >
+    insert into biz_customer
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="customerId != null" >
+        customer_id,
+      </if>
+      <if test="saleId != null" >
+        sale_id,
+      </if>
+      <if test="customerName != null" >
+        customer_name,
+      </if>
+      <if test="maritalStatus != null" >
+        marital_status,
+      </if>
+      <if test="birthDate != null" >
+        birth_date,
+      </if>
+      <if test="gender != null" >
+        gender,
+      </if>
+      <if test="idNumber != null" >
+        ID_number,
+      </if>
+      <if test="idType != null" >
+        ID_type,
+      </if>
+      <if test="mobile != null" >
+        mobile,
+      </if>
+      <if test="permanentCity != null" >
+        permanent_city,
+      </if>
+      <if test="permanentProvinces != null" >
+        permanent_provinces,
+      </if>
+      <if test="professional != null" >
+        professional,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="customerId != null" >
+        #{customerId,jdbcType=VARCHAR},
+      </if>
+      <if test="saleId != null" >
+        #{saleId,jdbcType=VARCHAR},
+      </if>
+      <if test="customerName != null" >
+        #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="maritalStatus != null" >
+        #{maritalStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="birthDate != null" >
+        #{birthDate,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null" >
+        #{gender,jdbcType=VARCHAR},
+      </if>
+      <if test="idNumber != null" >
+        #{idNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="idType != null" >
+        #{idType,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="permanentCity != null" >
+        #{permanentCity,jdbcType=VARCHAR},
+      </if>
+      <if test="permanentProvinces != null" >
+        #{permanentProvinces,jdbcType=VARCHAR},
+      </if>
+      <if test="professional != null" >
+        #{professional,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.niudingfeng.financialplannerlin.pojo.BizCustomerExample" resultType="java.lang.Integer" >
+    select count(*) from biz_customer
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update biz_customer
+    <set >
+      <if test="record.customerId != null" >
+        customer_id = #{record.customerId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.saleId != null" >
+        sale_id = #{record.saleId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.customerName != null" >
+        customer_name = #{record.customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.maritalStatus != null" >
+        marital_status = #{record.maritalStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.birthDate != null" >
+        birth_date = #{record.birthDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gender != null" >
+        gender = #{record.gender,jdbcType=VARCHAR},
+      </if>
+      <if test="record.idNumber != null" >
+        ID_number = #{record.idNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.idType != null" >
+        ID_type = #{record.idType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mobile != null" >
+        mobile = #{record.mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="record.permanentCity != null" >
+        permanent_city = #{record.permanentCity,jdbcType=VARCHAR},
+      </if>
+      <if test="record.permanentProvinces != null" >
+        permanent_provinces = #{record.permanentProvinces,jdbcType=VARCHAR},
+      </if>
+      <if test="record.professional != null" >
+        professional = #{record.professional,jdbcType=VARCHAR},
+      </if>
+      <if test="record.address != null" >
+        address = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update biz_customer
+    set customer_id = #{record.customerId,jdbcType=VARCHAR},
+      sale_id = #{record.saleId,jdbcType=VARCHAR},
+      customer_name = #{record.customerName,jdbcType=VARCHAR},
+      marital_status = #{record.maritalStatus,jdbcType=VARCHAR},
+      birth_date = #{record.birthDate,jdbcType=VARCHAR},
+      gender = #{record.gender,jdbcType=VARCHAR},
+      ID_number = #{record.idNumber,jdbcType=VARCHAR},
+      ID_type = #{record.idType,jdbcType=VARCHAR},
+      mobile = #{record.mobile,jdbcType=VARCHAR},
+      permanent_city = #{record.permanentCity,jdbcType=VARCHAR},
+      permanent_provinces = #{record.permanentProvinces,jdbcType=VARCHAR},
+      professional = #{record.professional,jdbcType=VARCHAR},
+      address = #{record.address,jdbcType=VARCHAR},
+      user_id = #{record.userId,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.niudingfeng.financialplannerlin.pojo.BizCustomer" >
+    update biz_customer
+    <set >
+      <if test="customerName != null" >
+        customer_name = #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="maritalStatus != null" >
+        marital_status = #{maritalStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="birthDate != null" >
+        birth_date = #{birthDate,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null" >
+        gender = #{gender,jdbcType=VARCHAR},
+      </if>
+      <if test="idNumber != null" >
+        ID_number = #{idNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="idType != null" >
+        ID_type = #{idType,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="permanentCity != null" >
+        permanent_city = #{permanentCity,jdbcType=VARCHAR},
+      </if>
+      <if test="permanentProvinces != null" >
+        permanent_provinces = #{permanentProvinces,jdbcType=VARCHAR},
+      </if>
+      <if test="professional != null" >
+        professional = #{professional,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where customer_id = #{customerId,jdbcType=VARCHAR}
+      and sale_id = #{saleId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.niudingfeng.financialplannerlin.pojo.BizCustomer" >
+    update biz_customer
+    set customer_name = #{customerName,jdbcType=VARCHAR},
+      marital_status = #{maritalStatus,jdbcType=VARCHAR},
+      birth_date = #{birthDate,jdbcType=VARCHAR},
+      gender = #{gender,jdbcType=VARCHAR},
+      ID_number = #{idNumber,jdbcType=VARCHAR},
+      ID_type = #{idType,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      permanent_city = #{permanentCity,jdbcType=VARCHAR},
+      permanent_provinces = #{permanentProvinces,jdbcType=VARCHAR},
+      professional = #{professional,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=VARCHAR}
+    where customer_id = #{customerId,jdbcType=VARCHAR}
+      and sale_id = #{saleId,jdbcType=VARCHAR}
+  </update>
+</mapper>

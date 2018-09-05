@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.niudingfeng.financialplannerlin.mapper.ProductMapper" >
+  <resultMap id="BaseResultMap" type="com.niudingfeng.financialplannerlin.pojo.Product" >
+    <id column="product_id" property="productId" jdbcType="VARCHAR" />
+    <result column="product_name" property="productName" jdbcType="VARCHAR" />
+    <result column="presale_day" property="presaleDay" jdbcType="VARCHAR" />
+    <result column="limit_id" property="limitId" jdbcType="VARCHAR" />
+    <result column="expect_rate" property="expectRate" jdbcType="VARCHAR" />
+    <result column="product_size" property="productSize" jdbcType="DECIMAL" />
+    <result column="starting_point" property="startingPoint" jdbcType="DECIMAL" />
+    <result column="starting_money" property="startingMoney" jdbcType="DECIMAL" />
+    <result column="yyy_copies" property="yyyCopies" jdbcType="INTEGER" />
+    <result column="yyy_money" property="yyyMoney" jdbcType="DECIMAL" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    product_id, product_name, presale_day, limit_id, expect_rate, product_size, starting_point, 
+    starting_money, yyy_copies, yyy_money, description, update_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.niudingfeng.financialplannerlin.pojo.ProductExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from prd
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from prd
+    where product_id = #{productId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from prd
+    where product_id = #{productId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.niudingfeng.financialplannerlin.pojo.ProductExample" >
+    delete from prd
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.niudingfeng.financialplannerlin.pojo.Product" >
+    insert into prd (product_id, product_name, presale_day, 
+      limit_id, expect_rate, product_size, 
+      starting_point, starting_money, yyy_copies, 
+      yyy_money, description, update_time
+      )
+    values (#{productId,jdbcType=VARCHAR}, #{productName,jdbcType=VARCHAR}, #{presaleDay,jdbcType=VARCHAR}, 
+      #{limitId,jdbcType=VARCHAR}, #{expectRate,jdbcType=VARCHAR}, #{productSize,jdbcType=DECIMAL}, 
+      #{startingPoint,jdbcType=DECIMAL}, #{startingMoney,jdbcType=DECIMAL}, #{yyyCopies,jdbcType=INTEGER}, 
+      #{yyyMoney,jdbcType=DECIMAL}, #{description,jdbcType=VARCHAR}, #{updateTime,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.niudingfeng.financialplannerlin.pojo.Product" >
+    insert into prd
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="productId != null" >
+        product_id,
+      </if>
+      <if test="productName != null" >
+        product_name,
+      </if>
+      <if test="presaleDay != null" >
+        presale_day,
+      </if>
+      <if test="limitId != null" >
+        limit_id,
+      </if>
+      <if test="expectRate != null" >
+        expect_rate,
+      </if>
+      <if test="productSize != null" >
+        product_size,
+      </if>
+      <if test="startingPoint != null" >
+        starting_point,
+      </if>
+      <if test="startingMoney != null" >
+        starting_money,
+      </if>
+      <if test="yyyCopies != null" >
+        yyy_copies,
+      </if>
+      <if test="yyyMoney != null" >
+        yyy_money,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="productId != null" >
+        #{productId,jdbcType=VARCHAR},
+      </if>
+      <if test="productName != null" >
+        #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="presaleDay != null" >
+        #{presaleDay,jdbcType=VARCHAR},
+      </if>
+      <if test="limitId != null" >
+        #{limitId,jdbcType=VARCHAR},
+      </if>
+      <if test="expectRate != null" >
+        #{expectRate,jdbcType=VARCHAR},
+      </if>
+      <if test="productSize != null" >
+        #{productSize,jdbcType=DECIMAL},
+      </if>
+      <if test="startingPoint != null" >
+        #{startingPoint,jdbcType=DECIMAL},
+      </if>
+      <if test="startingMoney != null" >
+        #{startingMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="yyyCopies != null" >
+        #{yyyCopies,jdbcType=INTEGER},
+      </if>
+      <if test="yyyMoney != null" >
+        #{yyyMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.niudingfeng.financialplannerlin.pojo.ProductExample" resultType="java.lang.Integer" >
+    select count(*) from prd
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update prd
+    <set >
+      <if test="record.productId != null" >
+        product_id = #{record.productId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.productName != null" >
+        product_name = #{record.productName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.presaleDay != null" >
+        presale_day = #{record.presaleDay,jdbcType=VARCHAR},
+      </if>
+      <if test="record.limitId != null" >
+        limit_id = #{record.limitId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.expectRate != null" >
+        expect_rate = #{record.expectRate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.productSize != null" >
+        product_size = #{record.productSize,jdbcType=DECIMAL},
+      </if>
+      <if test="record.startingPoint != null" >
+        starting_point = #{record.startingPoint,jdbcType=DECIMAL},
+      </if>
+      <if test="record.startingMoney != null" >
+        starting_money = #{record.startingMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="record.yyyCopies != null" >
+        yyy_copies = #{record.yyyCopies,jdbcType=INTEGER},
+      </if>
+      <if test="record.yyyMoney != null" >
+        yyy_money = #{record.yyyMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="record.description != null" >
+        description = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update prd
+    set product_id = #{record.productId,jdbcType=VARCHAR},
+      product_name = #{record.productName,jdbcType=VARCHAR},
+      presale_day = #{record.presaleDay,jdbcType=VARCHAR},
+      limit_id = #{record.limitId,jdbcType=VARCHAR},
+      expect_rate = #{record.expectRate,jdbcType=VARCHAR},
+      product_size = #{record.productSize,jdbcType=DECIMAL},
+      starting_point = #{record.startingPoint,jdbcType=DECIMAL},
+      starting_money = #{record.startingMoney,jdbcType=DECIMAL},
+      yyy_copies = #{record.yyyCopies,jdbcType=INTEGER},
+      yyy_money = #{record.yyyMoney,jdbcType=DECIMAL},
+      description = #{record.description,jdbcType=VARCHAR},
+      update_time = #{record.updateTime,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.niudingfeng.financialplannerlin.pojo.Product" >
+    update prd
+    <set >
+      <if test="productName != null" >
+        product_name = #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="presaleDay != null" >
+        presale_day = #{presaleDay,jdbcType=VARCHAR},
+      </if>
+      <if test="limitId != null" >
+        limit_id = #{limitId,jdbcType=VARCHAR},
+      </if>
+      <if test="expectRate != null" >
+        expect_rate = #{expectRate,jdbcType=VARCHAR},
+      </if>
+      <if test="productSize != null" >
+        product_size = #{productSize,jdbcType=DECIMAL},
+      </if>
+      <if test="startingPoint != null" >
+        starting_point = #{startingPoint,jdbcType=DECIMAL},
+      </if>
+      <if test="startingMoney != null" >
+        starting_money = #{startingMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="yyyCopies != null" >
+        yyy_copies = #{yyyCopies,jdbcType=INTEGER},
+      </if>
+      <if test="yyyMoney != null" >
+        yyy_money = #{yyyMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where product_id = #{productId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.niudingfeng.financialplannerlin.pojo.Product" >
+    update prd
+    set product_name = #{productName,jdbcType=VARCHAR},
+      presale_day = #{presaleDay,jdbcType=VARCHAR},
+      limit_id = #{limitId,jdbcType=VARCHAR},
+      expect_rate = #{expectRate,jdbcType=VARCHAR},
+      product_size = #{productSize,jdbcType=DECIMAL},
+      starting_point = #{startingPoint,jdbcType=DECIMAL},
+      starting_money = #{startingMoney,jdbcType=DECIMAL},
+      yyy_copies = #{yyyCopies,jdbcType=INTEGER},
+      yyy_money = #{yyyMoney,jdbcType=DECIMAL},
+      description = #{description,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=VARCHAR}
+    where product_id = #{productId,jdbcType=VARCHAR}
+  </update>
+</mapper>
